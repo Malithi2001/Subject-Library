@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
+// Main application entry point
 void main() {
   runApp(const MyApp());
 }
 
+// Root application widget with app-wide configuration
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -12,11 +14,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Subject Library',
+      // App-wide theme configuration
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
+      // Initial route is the Splash Screen
       home: const SplashScreen(),
+      // Define named routes for easy navigation
       routes: {
         '/login': (context) => const LoginPage(),
         '/signup': (context) => const SignUpPage(),
@@ -26,7 +31,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// Custom TextField Widget
+// Reusable custom text field widget with validation and styling
 class CustomTextField extends StatelessWidget {
   final IconData icon;
   final String hint;
@@ -47,13 +52,14 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
-      obscureText: isPassword,
-      validator: validator,
+      obscureText: isPassword,// Hide text for password fields
+      validator: validator,// Input validation
       decoration: InputDecoration(
         prefixIcon: Icon(icon),
         hintText: hint,
         filled: true,
         fillColor: Colors.grey[200],
+        // Stylish borderless input with rounded corners
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide.none,
@@ -63,7 +69,7 @@ class CustomTextField extends StatelessWidget {
   }
 }
 
-// Splash Screen
+// Splash screen to show app logo and transition to login
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -75,6 +81,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    // Automatically navigate to login page after 3 seconds
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacementNamed(context, '/login');
     });
@@ -84,6 +91,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blue[800],
+      // Centered column with app logo and title
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
